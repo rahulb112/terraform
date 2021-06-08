@@ -6,7 +6,7 @@ Environment = "dev"
 }
 }
 
-resources "aws_subnet" "my_subnet1" {
+resource "aws_subnet" "my_subnet1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
 availbilty_zone = "eu-west-2a"
 cidr_block = "${var.subnet_cidr}"
@@ -15,7 +15,7 @@ Name = "SN1"
 }
 }
 
-resources "aws_ec2" "my_ec2" {
+resource "aws_ec2" "my_ec2" {
 ami = "${var.ami}"
 instance_type = "t2.micro"
 subnet_id = "${aws_subnet.my_subnet1.id}"
@@ -26,7 +26,7 @@ tags = {
 }
 }
 
-resources "aws_security_group" "my_sg1" {
+resource "aws_security_group" "my_sg1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
 	egress = {
 	from_port = 0
