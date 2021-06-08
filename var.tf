@@ -1,15 +1,16 @@
-var "vpc_cidr" {
+variable "vpc_cidr" {
 default = "10.1.0.0/16"
 }
 
-var "subnet_cidr" {
+variable "subnet_cidr" {
 default = "10.1.1.0/24"
 }
 
-var "ami" {
+variable "ami" {
 default = "ami-xxxxxxxx"
 }
 
-var "sg_ports" {
+variable "sg_ports" {
 type = list
 default = [22,23,8080]
+}
