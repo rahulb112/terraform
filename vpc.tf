@@ -8,14 +8,14 @@ Environment = "dev"
 
 resource "aws_subnet" "my_subnet1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
-availbilty_zone = "eu-west-2a"
+availability_zone = "eu-west-2a"
 cidr_block = "${var.subnet_cidr}"
 tags = {
 Name = "SN1"
 }
 }
 
-resource "aws_ec2" "my_ec2" {
+resource "aws_instance" "my_ec2" {
 ami = "${var.ami}"
 instance_type = "t2.micro"
 subnet_id = "${aws_subnet.my_subnet1.id}"
@@ -28,7 +28,7 @@ tags = {
 
 resource "aws_security_group" "my_sg1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
-	egress = {
+egress {
 	from_port = 0
 	to_port = 0
 	protocol = "tcp"
@@ -37,7 +37,7 @@ vpc_id = "${aws_vpc.my_vpc.id}"
 	
 	dynamic "ingress" {
 	for_each = var.sg_ports
-	contents {
+	content {
 	from_port = ingress.value
 	to_port = ingress.value
 	protocol = "tcp"
