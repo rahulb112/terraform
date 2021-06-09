@@ -53,6 +53,11 @@ Name = "PublicRT"
 	}
 }
 
+resource "aws_route_table_association" "public-subnet"{
+    subnet_id = "${aws_subnet.prod-subnet-public-1.id}"
+    route_table_id = "${aws_route_table.prod-public-crt.id}"
+}
+
 resource "aws_security_group" "web_sg1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
 	
