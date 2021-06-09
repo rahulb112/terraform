@@ -1,22 +1,59 @@
 resource "aws_vpc" "my_vpc" {
 cidr_block = "${var.vpc_cidr}"
 tags = {
-Name = "Primary"
-Environment = "dev"
+Name = "MainVPC"
+Environment = "DEV"
 }
 }
 
-resource "aws_subnet" "my_subnet1" {
+resource "aws_subnet" "pub_subnet1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
 availability_zone = "eu-west-2a"
-cidr_block = "${var.subnet_cidr}"
+cidr_block = "${var.pub1_cidr}"
 tags = {
-Name = "SN1"
+Name = "PubSN1"
 }
 }
 
+resource "aws_subnet" "pub_subnet2" {
+vpc_id = "${aws_vpc.my_vpc.id}"
+availability_zone = "eu-west-2b"
+cidr_block = "${var.pub2_cidr}"
+tags = {
+Name = "PubSN2"
+}
+}
 
-resource "aws_security_group" "my_sg1" {
+resource "aws_subnet" "prv_subnet1" {
+vpc_id = "${aws_vpc.my_vpc.id}"
+availability_zone = "eu-west-2a"
+cidr_block = "${var.prv1_cidr}"
+tags = {
+Name = "PrvSN1"
+}
+}
+
+resource "aws_subnet" "prv_subnet2" {
+vpc_id = "${aws_vpc.my_vpc.id}"
+availability_zone = "eu-west-2b"
+cidr_block = "${var.prv2_cidr}"
+tags = {
+Name = "PrvSN2"
+}
+}
+
+resource "aws_route_table" "public-rt" {
+vpc_id = "${aws_vpc.my_vpc.id}"
+route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = "${aws_internet_gateway.dev-igw.id}"
+    }
+tags = {
+Name = "PublicRT"
+}
+}
+
+resource "aws_security_group" "web_sg1" {
 vpc_id = "${aws_vpc.my_vpc.id}"
 egress {
 	from_port = 0
@@ -34,5 +71,12 @@ egress {
 	cidr_blocks = ["10.1.1.0/24"]
 	}
 	}
+}
+
+resource "aws_internet_gateway" "dev-igw" {
+    vpc_id = "${aws_vpc.my_vpc.id}"
+    tags {
+        Name = "IGW"
+    }
 }
 	
