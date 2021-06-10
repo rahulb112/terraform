@@ -5,6 +5,13 @@ subnet_id = "${aws_subnet.my_subnet1.id}"
 user_data = "${file("path/apache.sh")}"
 key_name = "{aws_key_pair.ec2-key.key_name}"
 vpc_security_group_ids = ["${aws_security_group.web_sg1.id}"]
+ebs_block_device = [
+    {
+      device_name = "/dev/sdf"
+      volume_type = "gp2"
+      volume_size = 8
+    }
+  ]
 tags = {
         Name = "my-ec2"
 }
