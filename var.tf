@@ -21,7 +21,3 @@ variable "ami" {
 default = "ami-xxxxxxxx"
 }
 
-variable "sg_ports" {
-type = list
-default = [22,80]
-}
