@@ -4,7 +4,7 @@ instance_type = "t2.micro"
 subnet_id = "${aws_subnet.my_subnet1.id}"
 user_data = "${file("path/apache.sh")}"
 key_name = "{aws_key_pair.ec2-key.key_name}"
-vpc_security_group_ids = ["${aws_security_group.my_sg1.id}"]
+vpc_security_group_ids = ["${aws_security_group.web_sg1.id}"]
 tags = {
         Name = "my-ec2"
 }
@@ -13,4 +13,29 @@ tags = {
 resource "aws_key_pair" "ec2-key" {
   key_name   = "key.pub"
   public_key = "ssh-rsa XXXXXXX email@example.com"
+}
+
+resource "aws_security_group" "web_sg1" {
+vpc_id = "${aws_vpc.my_vpc.id}"
+	
+egress {
+	from_port = 0
+	to_port = 0
+	protocol = "-1"
+	cidr_blocks = ["0.0.0.0/0"]
+	}
+	
+ingress {
+	from_port = 22
+	to_port = 22
+	protocol = "tcp"
+	cidr_blocks = ["10.1.0.0/24"]
+	}
+	
+ingress {
+	from_port = 80
+	to_port = 80
+	protocol = "tcp"
+	cidr_blocks = ["0.0.0.0/0"]
+	}	
 }
