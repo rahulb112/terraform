@@ -82,6 +82,11 @@ ingress {
 	}	
 }
 
+resource "aws_eip" "ec2eip" {
+  vpc      = true
+  instance = "${aws_instance.my_ec2.id}"
+}
+
 resource "aws_internet_gateway" "dev-igw" {
 vpc_id = "${aws_vpc.my_vpc.id}"
 tags {
