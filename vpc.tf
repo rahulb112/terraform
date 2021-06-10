@@ -20,7 +20,7 @@ resource "aws_subnet" "prv_subnet" {
 count = "$length(var.prv_subnet_cidr)}"
 vpc_id = "${aws_vpc.my_vpc.id}"
 availability_zone = "${var.subnet_az[count.index]}"
-cidr_block = "${var.pub_subnet_cidr[count.index]}"
+cidr_block = "${var.prv_subnet_cidr[count.index]}"
 tags = {
 Name = "PrvSN-${count.index+1}"
 	}
@@ -83,9 +83,9 @@ ingress {
 }
 
 resource "aws_internet_gateway" "dev-igw" {
-    vpc_id = "${aws_vpc.my_vpc.id}"
-    tags {
-        Name = "IGW"
-    	}
+vpc_id = "${aws_vpc.my_vpc.id}"
+tags {
+      Name = "IGW"
+    }
 }
 	
