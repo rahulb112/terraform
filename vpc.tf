@@ -6,40 +6,25 @@ Environment = "DEV"
 	}
 }
 
-resource "aws_subnet" "pub_subnet1" {
+resource "aws_subnet" "pub_subnet" {
+count = "$length(var.pub_subnet_cidr)}"
 vpc_id = "${aws_vpc.my_vpc.id}"
-availability_zone = "eu-west-2a"
-cidr_block = "${var.pub1_cidr}"
+availability_zone = "${var.subnet_az[count.index]}"
+cidr_block = "${var.pub_subnet_cidr[count.index]}"
 tags = {
-Name = "PubSN1"
+Name = "PubSN-${count.index+1}"
 	}
 }
 
-resource "aws_subnet" "pub_subnet2" {
+resource "aws_subnet" "prv_subnet" {
+count = "$length(var.prv_subnet_cidr)}"
 vpc_id = "${aws_vpc.my_vpc.id}"
-availability_zone = "eu-west-2b"
-cidr_block = "${var.pub2_cidr}"
+availability_zone = "${var.subnet_az[count.index]}"
+cidr_block = "${var.pub_subnet_cidr[count.index]}"
 tags = {
-Name = "PubSN2"
+Name = "PrvSN-${count.index+1}"
 	}
 }
-
-resource "aws_subnet" "prv_subnet1" {
-vpc_id = "${aws_vpc.my_vpc.id}"
-availability_zone = "eu-west-2a"
-cidr_block = "${var.prv1_cidr}"
-tags = {
-Name = "PrvSN1"
-	}
-}
-
-resource "aws_subnet" "prv_subnet2" {
-vpc_id = "${aws_vpc.my_vpc.id}"
-availability_zone = "eu-west-2b"
-cidr_block = "${var.prv2_cidr}"
-tags = {
-Name = "PrvSN2"
-	}
 }
 
 resource "aws_route_table" "public-rt" {
