@@ -18,4 +18,39 @@ output "ec2_az" {
   value = aws_instance.my_ec2.availability_zone
 }
 
+output "public_subnets" {
+  value = aws_subnet.pub_subnet.*.id
+}
+
+output "private_subnets" {
+  value = aws_subnet.prv_subnet.*.id
+}
+
+output "public_subnets" {
+  value = aws_subnet.pub_subnet.*.cidr_block
+}
+
+output "private_subnets" {
+  value = aws_subnet.prv_subnet.*.cidr_block
+}
+
+output "public_route_table_ids" {
+  value       = aws_route_table.pub-rt.id
+}
+
+output "private_route_table_ids" {
+  value       = aws_route_table.prv-rt.id
+}
+
+output "public_route_table_association_ids" {
+  value       = aws_route_table_association.pub-rta.*.id
+}
+
+output "private_route_table_association_ids" {
+  value       = aws_route_table_association.prv-rta.*.id
+}
+
+output "igw_id" {
+  value       = aws_internet_gateway.dev-igw.id
+}
 
