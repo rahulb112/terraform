@@ -2,6 +2,10 @@ output "vpc_id" {
   value = aws_vpc.my_vpc.id
 }
 
+output "vpc_cidr_block" {
+  value = aws_vpc.my_vpc.cidr_block
+}
+
 output "ec2_instance_id" {
   value = aws_instance.my_ec2.id
 }
