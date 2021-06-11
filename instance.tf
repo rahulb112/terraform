@@ -33,11 +33,14 @@ resource "aws_security_group" "web_sg1" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
+  dynamic "ingress" {
+    for_each = var.sg_ports
+    content {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["10.1.0.0/24"]
+  }
   }
 
   ingress {
