@@ -1,7 +1,7 @@
 resource "aws_instance" "my_ec2" {
   ami                    = var.ami
   instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.my_subnet1.id
+  subnet_id              = aws_subnet.pub_subnet.1.id
   user_data              = file("apache.sh")
   key_name               = aws_key_pair.ec2-key.key_name
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
