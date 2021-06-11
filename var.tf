@@ -18,7 +18,7 @@ variable "subnet_az" {
 }
 
 variable "sg_ports" {
-  type    = "List"
+  type    = list(number)
   default = ["22", "80"]
 }
 
