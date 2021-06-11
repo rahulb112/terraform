@@ -17,6 +17,11 @@ variable "subnet_az" {
   default = ["eu-west-2a", "eu-west-2b"]
 }
 
+variable "sg_ports" {
+  type    = "List"
+  default = ["22", "80"]
+}
+
 variable "ami" {
   default = "ami-xxxxxxxx"
 }
