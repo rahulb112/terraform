@@ -54,13 +54,13 @@ resource "aws_route_table" "prv-rt" {
 
 resource "aws_route_table_association" "pub-rta" {
   count          = length(var.pub_subnet_cidr)
-  subnet_id      = element(aws_subnet.pub-subnet.*.id, count.index)
+  subnet_id      = element(aws_subnet.pub_subnet.*.id, count.index)
   route_table_id = aws_route_table.pub-rt.id
 }
 
 resource "aws_route_table_association" "prv-rta" {
   count          = length(var.prv_subnet_cidr)
-  subnet_id      = element(aws_subnet.prv-subnet.*.id, count.index)
+  subnet_id      = element(aws_subnet.prv_subnet.*.id, count.index)
   route_table_id = aws_route_table.prv-rt.id
 }
 
