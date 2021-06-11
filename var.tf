@@ -3,17 +3,17 @@ variable "vpc_cidr" {
 }
 
 variable "pub_subnet_cidr" {
-  type    = "List"
+  type    = list
   default = ["10.1.0.0/26", "10.1.0.64/26"]
 }
 
 variable "prv_subnet_cidr" {
-  type    = "List"
+  type    = list
   default = ["10.1.0.128/26", "10.1.0.192/26"]
 }
 
 variable "subnet_az" {
-  type    = "List"
+  type    = list
   default = ["eu-west-2a", "eu-west-2b"]
 }
 
