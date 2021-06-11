@@ -6,7 +6,7 @@ resource "aws_iam_role_policy" "s3_access_policy" {
 
 resource "aws_iam_role" "ec2_role" {
   name               = "ec2_role"
-  assume_role_policy = file(ec2_role.json)
+  assume_role_policy = file(./ec2_role.json)
 }
 
 resource "aws_iam_instance_profile" "ec2_profile" {
