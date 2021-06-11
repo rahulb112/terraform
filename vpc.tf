@@ -1,5 +1,5 @@
 locals {
-  environment = "${terraform.workspace}"
+  environment = terraform.workspace
 }
 
 resource "aws_vpc" "my_vpc" {
@@ -16,7 +16,7 @@ resource "aws_subnet" "pub_subnet" {
   availability_zone = var.subnet_az[count.index]
   cidr_block        = var.pub_subnet_cidr[count.index]
   tags = {
-    Name = "PubSN-${count.index + 1}"
+    Name        = "PubSN-${count.index + 1}"
     Environment = local.environment
   }
 }
@@ -27,7 +27,7 @@ resource "aws_subnet" "prv_subnet" {
   availability_zone = var.subnet_az[count.index]
   cidr_block        = var.prv_subnet_cidr[count.index]
   tags = {
-    Name = "PrvSN-${count.index + 1}"
+    Name        = "PrvSN-${count.index + 1}"
     Environment = local.environment
   }
 }
@@ -39,7 +39,7 @@ resource "aws_route_table" "pub-rt" {
     gateway_id = aws_internet_gateway.dev-igw.id
   }
   tags = {
-    Name = "PublicRT"
+    Name        = "PublicRT"
     Environment = local.environment
   }
 }
@@ -47,7 +47,7 @@ resource "aws_route_table" "pub-rt" {
 resource "aws_route_table" "prv-rt" {
   vpc_id = aws_vpc.my_vpc.id
   tags = {
-    Name = "PrivateRT"
+    Name        = "PrivateRT"
     Environment = local.environment
   }
 }
@@ -97,7 +97,7 @@ resource "aws_eip" "ec2eip" {
 resource "aws_internet_gateway" "dev-igw" {
   vpc_id = aws_vpc.my_vpc.id
   tags = {
-    Name = "IGW"
+    Name        = "IGW"
     Environment = local.environment
   }
 }

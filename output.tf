@@ -39,22 +39,22 @@ output "private_subnets_cidr" {
 }
 
 output "public_route_table_ids" {
-  value       = aws_route_table.pub-rt.id
+  value = aws_route_table.pub-rt.id
 }
 
 output "private_route_table_ids" {
-  value       = aws_route_table.prv-rt.id
+  value = aws_route_table.prv-rt.id
 }
 
 output "public_route_table_association_ids" {
-  value       = aws_route_table_association.pub-rta.*.id
+  value = aws_route_table_association.pub-rta.*.id
 }
 
 output "private_route_table_association_ids" {
-  value       = aws_route_table_association.prv-rta.*.id
+  value = aws_route_table_association.prv-rta.*.id
 }
 
 output "igw_id" {
-  value       = aws_internet_gateway.dev-igw.id
+  value = aws_internet_gateway.dev-igw.id
 }
 
