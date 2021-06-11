@@ -1,8 +1,12 @@
+locals {
+  environment = "${terraform.workspace}"
+}
+
 resource "aws_vpc" "my_vpc" {
   cidr_block = var.vpc_cidr
   tags = {
     Name        = "MainVPC"
-    Environment = "DEV"
+    Environment = local.environment
   }
 }
 
@@ -13,6 +17,7 @@ resource "aws_subnet" "pub_subnet" {
   cidr_block        = var.pub_subnet_cidr[count.index]
   tags = {
     Name = "PubSN-${count.index + 1}"
+    Environment = local.environment
   }
 }
 
@@ -23,6 +28,7 @@ resource "aws_subnet" "prv_subnet" {
   cidr_block        = var.prv_subnet_cidr[count.index]
   tags = {
     Name = "PrvSN-${count.index + 1}"
+    Environment = local.environment
   }
 }
 
@@ -34,6 +40,7 @@ resource "aws_route_table" "pub-rt" {
   }
   tags = {
     Name = "PublicRT"
+    Environment = local.environment
   }
 }
 
@@ -41,6 +48,7 @@ resource "aws_route_table" "prv-rt" {
   vpc_id = aws_vpc.my_vpc.id
   tags = {
     Name = "PrivateRT"
+    Environment = local.environment
   }
 }
 
@@ -90,6 +98,7 @@ resource "aws_internet_gateway" "dev-igw" {
   vpc_id = aws_vpc.my_vpc.id
   tags = {
     Name = "IGW"
+    Environment = local.environment
   }
 }
 
