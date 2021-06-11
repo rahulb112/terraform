@@ -64,31 +64,6 @@ resource "aws_route_table_association" "prv-rta" {
   route_table_id = aws_route_table.prv-rt.id
 }
 
-resource "aws_security_group" "web_sg1" {
-  vpc_id = aws_vpc.my_vpc.id
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["10.1.0.0/24"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_eip" "ec2eip" {
   vpc      = true
   instance = aws_instance.my_ec2.id
