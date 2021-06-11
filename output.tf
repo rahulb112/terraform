@@ -22,19 +22,19 @@ output "ec2_az" {
   value = aws_instance.my_ec2.availability_zone
 }
 
-output "public_subnets" {
+output "public_subnets_id" {
   value = aws_subnet.pub_subnet.*.id
 }
 
-output "private_subnets" {
+output "private_subnets_id" {
   value = aws_subnet.prv_subnet.*.id
 }
 
-output "public_subnets" {
+output "public_subnets_cidr" {
   value = aws_subnet.pub_subnet.*.cidr_block
 }
 
-output "private_subnets" {
+output "private_subnets_cidr" {
   value = aws_subnet.prv_subnet.*.cidr_block
 }
 
