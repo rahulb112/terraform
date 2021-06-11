@@ -12,7 +12,7 @@ resource "aws_instance" "my_ec2" {
       volume_size = 8
     }
   
-  tags {
+  tags = {
     Name = "my-ec2"
   }
 }
