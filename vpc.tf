@@ -88,7 +88,7 @@ resource "aws_eip" "ec2eip" {
 
 resource "aws_internet_gateway" "dev-igw" {
   vpc_id = aws_vpc.my_vpc.id
-  tags {
+  tags = {
     Name = "IGW"
   }
 }
